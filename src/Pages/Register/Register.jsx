@@ -1,11 +1,11 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { toast } from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
+// import { AuthContext } from "../../AuthProvider/AuthProvider";
+// import { useContext } from "react";
 
 const Register = () => {
-
-	const { createUser } = useContext(AuthContext)
+	const {createUser}  = useAuth();
+	// const { createUser } = useContext(AuthContext)
 
 	const handlerRegister = (e) => {
 		e.preventDefault();
@@ -18,7 +18,7 @@ const Register = () => {
 		createUser(email, password)
 			.then(result => {
 				console.log(result.user);
-				toast.success('Registration Successfully')
+				// toast.success('Registration Successfully')
 			})
 			.catch(error => {
 				console.error(error)

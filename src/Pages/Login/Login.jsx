@@ -1,22 +1,39 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { toast } from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+// import { AuthContext } from "../../AuthProvider/AuthProvider";
+// import { useContext } from "react";
+// import { toast } from "react-hot-toast";
 
 const Login = () => {
-	const { login } = useContext(AuthContext)
+	const { login } = useAuth();
+	// const { login } = useContext(AuthContext)
+	const location = useLocation()
+	const navigate = useNavigate()
+	console.log(location);
 
 	const handleLogin = (e) => {
 		e.preventDefault();
 		const form = new FormData(e.currentTarget)
 		const email = form.get('email')
 		const password = form.get('password')
-		console.log(email, password);
+		// console.log(email, password);
 
 		login(email, password)
 			.then(result => {
-				console.log(result.user);
-				toast.success("Login Successfully")
+				const loggedInUser = result.user;
+				console.log(loggedInUser);
+				const user = { email };
+				// get access token
+				axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+					.then(res => {
+						console.log(res.data);
+						if (res.data.success) {
+							navigate(location?.state ? location?.state : '/')
+
+						}
+					})
+
 			})
 			.catch(error => {
 				console.log(error);

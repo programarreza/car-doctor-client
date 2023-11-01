@@ -1,6 +1,20 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+// import { useContext } from "react";
+// import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+
+	const {user, logOut} = useAuth();
+	// const { user, logOut } = useContext(AuthContext)
+
+	const handleLogOut = () => {
+		logOut()
+			.then(() => { })
+			.then(error => {
+				console.log(error);
+			})
+	}
 
 	const navLinks = <div className="flex gap-6 text-lg font-semibold">
 		<NavLink
@@ -43,6 +57,16 @@ const Navbar = () => {
 		>
 			Contact
 		</NavLink>
+
+		{
+			user?.email ? <>
+				<NavLink to="/bookings" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-gray-400 underline" : ""}> My Bookings </NavLink>
+
+				<NavLink to="/login" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-gray-400 underline" : ""}> <button onClick={handleLogOut}>Log Out</button> </NavLink>
+			</>
+				:
+				<NavLink to="/login" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-gray-400 underline" : ""}>Login</NavLink>
+		}
 	</div >
 	return (
 		<div className="navbar bg-base-100">
@@ -66,7 +90,7 @@ const Navbar = () => {
 			</div>
 			<div className="navbar-end">
 				<Link to="/">
-				<button className="btn btn-outline btn-primary">Appointment</button>
+					<button className="btn btn-outline btn-primary">Appointment</button>
 				</Link>
 
 			</div>
