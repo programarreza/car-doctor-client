@@ -28,7 +28,7 @@ const Checkout = () => {
 		}
 		console.log(order);
 
-		fetch('http://localhost:5000/bookings', {
+		fetch('https://car-doctor-server-two-mocha.vercel.app/bookings', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

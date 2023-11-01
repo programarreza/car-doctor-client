@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
+import Bookings from "../Pages/Bookings/Bookings";
 import Checkout from "../Pages/Checkout/Checkout";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
-import Bookings from "../Pages/Bookings/Bookings";
 import PrivateRoute from "./PrivateRoute";
 
 
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
 			{
 				path: "/checkout/:id",
 				element: <PrivateRoute><Checkout></Checkout></PrivateRoute>,
-				loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`)
+				loader: ({ params }) => fetch(`https://car-doctor-server-two-mocha.vercel.app/services/${params.id}`)
 			},
 			{
 				path: "/bookings",

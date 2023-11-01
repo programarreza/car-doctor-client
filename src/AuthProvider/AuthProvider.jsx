@@ -1,8 +1,8 @@
-import { createContext, useEffect, useState } from "react";
-import PropTypes from 'prop-types';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase.config";
 import axios from "axios";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import PropTypes from 'prop-types';
+import { createContext, useEffect, useState } from "react";
+import { auth } from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null)
 
@@ -33,13 +33,13 @@ const AuthProvider = ({ children }) => {
 			setLoading(false)
 			// if user exists then issue a token
 			if (currentUser) {
-				axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
+				axios.post('https://car-doctor-server-two-mocha.vercel.app/jwt', loggedUser, { withCredentials: true })
 					.then(res => {
 						console.log('token response ', res.data);
 					})
 			}
 			else {
-				axios.post('http://localhost:5000/logout', loggedUser, {
+				axios.post('https://car-doctor-server-two-mocha.vercel.app/logout', loggedUser, {
 					withCredentials: true
 				})
 					.then(res => {
