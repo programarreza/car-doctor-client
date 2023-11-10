@@ -24,11 +24,11 @@ const Checkout = () => {
 			img,
 			service: title,
 			service_id: _id,
-			price: price,
+			price: parseInt(price),
 		}
 		console.log(order);
 
-		fetch('https://car-doctor-server-two-mocha.vercel.app/bookings', {
+		fetch('http://localhost:5000/bookings', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Checkout = () => {
 						<input type="email" name="email" defaultValue={user?.email} placeholder="Email" className="input input-bordered" required />
 					</div>
 					<div className="form-control ">
-						<input type="text" name="price" defaultValue={'$' + price} className="input input-bordered" required />
+						<input type="text" name="price" defaultValue={price} className="input input-bordered" required />
 					</div>
 
 				</div>

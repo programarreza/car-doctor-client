@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+import { axiosSecure } from "./useAxiosSecure";
 
-const useServices = () => {
+
+const useServices = (asc, search) => {
 	const [services, setServices] = useState([])
 
 	useEffect(() => {
-		fetch('https://car-doctor-server-two-mocha.vercel.app/services')
-			.then(res => res.json())
-			.then(data => setServices(data))
-	}, [])
+		axiosSecure(`/services?search=${search}`)
+		.then(res => setServices(res?.data))
+	}, [asc, search])
 	return services;
 };
 

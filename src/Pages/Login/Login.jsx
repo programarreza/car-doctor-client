@@ -25,7 +25,7 @@ const Login = () => {
 				console.log(loggedInUser);
 				const user = { email };
 				// get access token
-				axios.post('https://car-doctor-server-two-mocha.vercel.app/jwt', user, { withCredentials: true })
+				axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
 					.then(res => {
 						console.log(res.data);
 						if (res.data.success) {
